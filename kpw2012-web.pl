@@ -60,45 +60,7 @@ helper markdown => sub {
     return $html;
 };
 
-helper login => sub {
-    my ( $self, $username, $password, $remember ) = @_;
-
-    return unless $username;
-    return unless $password;
-    return unless $self->app->config->{users};
-    return unless $self->app->config->{users}{data};
-
-    my $email = $username;
-    if ($username =~ /\@/) {
-        for my $_username ( keys %{ $self->app->config->{users}{data} } ) {
-            if ( $email eq $self->app->config->{users}{data}{$_username}{email} ) {
-                $username = $_username;
-                last;
-            }
-        }
-    }
-    else {
-        $email = $self->app->config->{users}{data}{$username}{email};
-    }
-
-    $self->session(
-        user         => $self->app->config->{users}{data}{$username},
-        expiration   => $remember ?  $self->app->config->{expire}{remember} : $self->app->config->{expire}{default},
-    );
-
-    $self->app->log->debug("login success");
-
-    return 1;
-};
-
 any '/' => 'index';
-
-get '/logout' => sub {
-    my $self = shift;
-
-    $self->session(expires => 1);
-    $self->redirect_to('/');
-};
 
 any '/contact' => sub {
     my $self = shift;
