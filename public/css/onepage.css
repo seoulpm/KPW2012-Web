@@ -511,6 +511,12 @@ footer ul li {
     opacity: 0.5;
 }
 
+.no-multiplebgs #section-register {
+    background: url('../img/camel.png') #ed145b no-repeat center bottom fixed;
+    background-size: auto;
+    background-position: auto;
+}
+
 #section-attender {
     background: url('../img/camel.png') no-repeat center bottom fixed,
     url('../img/escheresque_blue_bg.png');
@@ -564,6 +570,12 @@ footer ul li {
 #section-attender .content .profile img {
     border: solid 1px white;
     width: 90%;
+}
+
+.no-multiplebgs #section-attender {
+    background: url('../img/camel.png') #148aee no-repeat center bottom fixed;
+    background-size: auto;
+    background-position: auto;
 }
 
 #section-schedule {
@@ -637,6 +649,12 @@ footer ul li {
 
 #section-schedule .spacer {
     margin: 60px;
+}
+
+.no-multiplebgs #section-schedule {
+    background: url('../img/camel.png') #636363 no-repeat center bottom fixed;
+    background-size: auto;
+    background-position: auto;
 }
 
 #section-contact {
@@ -740,6 +758,12 @@ footer ul li {
     color: #666666;
     font-size: 0.6875em;
     text-shadow: none;
+}
+
+.no-multiplebgs #section-contact {
+    background: url('../img/camel.png') #e4e4e4 no-repeat center bottom fixed;
+    background-size: auto;
+    background-position: auto;
 }
 
 .contact-response {
