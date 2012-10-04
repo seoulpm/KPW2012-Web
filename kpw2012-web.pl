@@ -365,6 +365,7 @@ __DATA__
     % for my $css (@$csses) {
       <link type="text/css" rel="stylesheet" href="<%= $css %>"> 
     % }
+    <script src="/js/modernizr.js"></script>
 
 
 @@ layouts/body-load.html.ep
