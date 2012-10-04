@@ -4,23 +4,54 @@ use 5.010;
 use utf8;
 
 use Mojolicious::Lite;
+use Mojo::Util qw( md5_sum encode );
 
+use DBIx::Connector;
+use DateTime;
 use Text::MultiMarkdown;
-use Validator::Custom;
+use Try::Tiny;
+
+my %DEFAULT_STASH = (
+    active => q{},
+    %{ plugin 'Config' },
+);
+app->defaults(%DEFAULT_STASH);
 
 my $m = Text::MultiMarkdown->new(
     tab_width     => 2,
     use_wikilinks => 0,
 );
 
-my $config = plugin 'Config';
-my %DEFAULT_STASH = (
-    active => q{},
-    %$config,
-);
-app->defaults(%DEFAULT_STASH);
+my $conn = DBIx::Connector->new( @{ app->config->{connect} } );
+$conn->dbh;
+die "cannot connect to database\n" unless $conn->connected;
 
-my $vc = Validator::Custom->new;
+helper checksum => sub {
+    my ( $self, @strings ) = @_;
+
+    return unless @strings;
+    return md5_sum( encode('UTF-8', join(q{}, @strings)) );
+};
+
+helper add_contact => sub {
+    my ( $self, $email, $subject, $message, $checksum ) = @_;
+
+    $self->app->log->warn("invalid email $email"),       return unless $email;
+    $self->app->log->warn("invalid subject $subject"),   return unless $subject;
+    $self->app->log->warn("invalid message $message"),   return unless $message;
+    $self->app->log->warn("invalid checksum $checksum"), return
+        unless $checksum eq $self->checksum( $email, $subject, $message );
+
+    my $rv = $conn->run(fixup => sub {
+        try {
+            my $sth = $_->prepare('INSERT INTO contact (email,subject,message,created_on) VALUES (?,?,?,?)');
+            my $rv = $sth->execute($email, $subject, $message, DateTime->now->format_cldr("yyyy-MM-dd HH:mm::ss"));
+            $rv;
+        };
+    });
+
+    return $rv;
+};
 
 helper markdown => sub {
     my ( $self, $text ) = @_;
@@ -67,6 +98,24 @@ get '/logout' => sub {
 
     $self->session(expires => 1);
     $self->redirect_to('/');
+};
+
+any '/contact' => sub {
+    my $self = shift;
+
+    my $email    = $self->param('email')    || q{};
+    my $subject  = $self->param('subject')  || q{};
+    my $message  = $self->param('message')  || q{};
+    my $checksum = $self->param('checksum') || q{};
+
+    my $ret = $self->add_contact(
+        $email,
+        $subject,
+        $message,
+        $checksum,
+    );
+
+    $self->respond_to( json => { json => { ret => $ret ? 1 : 0 } } );
 };
 
 app->secret( app->defaults->{secret} );
@@ -251,7 +300,7 @@ __DATA__
         <div class="col_6 last"> <h1>Contact.</h1> </div>
       </header>
       <div class="content">
-        <form action="/contact" method="post">
+        <form method="post">
           <div class="row">
             <div class="col_6 pre_4">
               <p>
@@ -264,37 +313,37 @@ __DATA__
           </div>
           <div class="row">
             <div class="col_4">
-              <label for="id_email">Email</label>
+              <label for="contact-email">Email</label>
             </div>
             <div class="col_6 suf_2 last">
               <div class="form-holder">
-                <input type="text" name="email" id="id_email" placeholder="답장을 받을 메일 주소" />
+                <input id="contact-email" name="contact-email" type="text" placeholder="답장을 받을 메일 주소" />
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col_4">
-              <label for="id_subject">Subject</label>
+              <label for="contact-subject">Subject</label>
             </div>
             <div class="col_6 suf_2 field-holder last">
               <div class="form-holder">
-                <input id="id_subject" type="text" name="subject" maxlength="150" placeholder="제목을 입력하세요." />
+                <input id="contact-subject" name="contact-subject" type="text" maxlength="128" placeholder="제목을 입력하세요." />
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col_4">
-              <label for="id_message">Message</label>
+              <label for="contact-message">Message</label>
             </div>
             <div class="col_6 suf_2 field-holder last">
               <div class="form-holder">
-                <textarea id="id_message" rows="10" cols="40" name="message" placeholder="내용을 입력하세요."></textarea>
+                <textarea id="contact-message" name="contact-message" rows="10" cols="40" placeholder="내용을 입력하세요."></textarea>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col_1 pre_9">
-              <a href="#" class="submit-button suf_1">Submit</a>
+              <a href="#section-contact" id="contact-submit" class="submit-button suf_1">Submit</a>
             </div>
           </div>
         </form>
@@ -308,7 +357,7 @@ __DATA__
 @@ index.html.ep
 % layout 'onepage',
 %   csses => [ qw( /css/boilerplate.css /css/onepage.css  ) ],
-%   jses  => [ qw( jquery.nav.js jquery.scrollTo.js onepage.js ) ];
+%   jses  => [ qw( jquery.nav.js jquery.scrollTo.js md5.min.js onepage.js ) ];
 %
 % title 'Korean Perl Workshop 2012';
 %= include 'section-home'
