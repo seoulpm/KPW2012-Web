@@ -25,7 +25,8 @@ my %WriteMakefileArgs = (
     "String::Random::NiceURL" => 0,
     "Text::MultiMarkdown" => 0,
     "Try::Tiny" => 0,
-    "utf8" => 0
+    "utf8" => 0,
+    "Starlet" => 0
   },
   "VERSION" => "0.0.1",
   "test" => {

@@ -1,0 +1,2 @@
+#!/bin/sh
+morbo -w kpw2012-web.conf kpw2012-web.pl
