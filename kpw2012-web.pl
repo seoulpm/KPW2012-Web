@@ -184,7 +184,7 @@ helper markdown => sub {
 
 get '/' => 'index';
 
-get '/register' => sub {
+post '/register' => sub {
     my $self = shift;
 
     my $email    = $self->param('email')    || q{};
