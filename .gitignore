@@ -16,6 +16,7 @@ META.yml
 MYMETA.yml
 nytprof.out
 pm_to_blib
+sendmail/
 
 #
 # editor swap file
