@@ -17,6 +17,57 @@ $(document).ready(function() {
   $('.profile-waiting-image').css({'height': waiting+'px'});
 
   //
+  // submit register form
+  //
+  $('#register-submit').click(function(){
+    var email    = $("#register-email").val();
+    var name     = $("#register-name").val();
+    var twitter  = $("#register-twitter").val();
+    var message  = $("#register-message").val();
+    var checksum = md5( email + name + twitter + message );
+
+    $.ajax({
+      url: '/register',
+      headers: {
+          "Accept":       "application/json; charset=utf-8",
+          "Content-Type": "application/json; charset=utf-8"
+      },
+      data: {
+        email:    email,
+        name:     name,
+        twitter:  twitter,
+        message:  message,
+        checksum: checksum
+      },
+      success: function(data) {
+        if (!data) {
+          $("#error-dialog").html('Sending message failed. Try again.');
+          $('#error-dialog').dialog('open');
+          return;
+        }
+        if (!data.ret) {
+          $("#error-dialog").html('Sending message failed. Try again.');
+          $('#error-dialog').dialog('open');
+          return;
+        }
+        if (data.ret == -1) {
+          $("#error-dialog").html('Already registered. Check your e-mail or contact us.');
+          $('#error-dialog').dialog('open');
+          return;
+        }
+
+        $("#register-email").val('');
+        $("#register-name").val('');
+        $("#register-twitter").val('');
+        $("#register-message").val('');
+      },
+      dataType: 'json'
+    })
+
+    return false;
+  });
+
+  //
   // submit contact form
   //
   $('#contact-submit').click(function(){
@@ -39,11 +90,13 @@ $(document).ready(function() {
       },
       success: function(data) {
         if (!data) {
-          alert('Sending message failed. Try again.');
+          $("#error-dialog").html('Sending message failed. Try again.');
+          $('#error-dialog').dialog('open');
           return;
         }
         if (!data.ret) {
-          alert('Sending message failed. Try again.');
+          $("#error-dialog").html('Sending message failed. Try again.');
+          $('#error-dialog').dialog('open');
           return;
         }
 
@@ -56,4 +109,9 @@ $(document).ready(function() {
 
     return false;
   });
+
+  //
+  // error dialog
+  //
+  $('#error-dialog').dialog({ autoOpen: false, title: 'Error', modal: true });
 });
