@@ -182,7 +182,7 @@ helper markdown => sub {
     return $html;
 };
 
-get '/' => 'index';
+get('/' => 'index');
 
 post '/register' => sub {
     my $self = shift;
@@ -417,7 +417,7 @@ __DATA__
           % for (qw/ keedi ja3ck /) {
             <div class="col_2">
               <div class="profile confirmed">
-                <p> <img class="profile-confirmed-image" src="/img/<%= $_ %>.jpg" alt="<%= $_ %>" /> <br/> <%= $_ %><p/>
+                <p> <img class="profile-confirmed-image" src="./img/<%= $_ %>.jpg" alt="<%= $_ %>" /> <br/> <%= $_ %><p/>
               </div>
             </div>
           % }
@@ -433,7 +433,7 @@ __DATA__
           % for (qw/ JEEN_LEE yongbin aanoaa rumidier /) {
             <div class="col_1">
               <div class="profile waiting">
-                <p> <img class="profile-waiting-image" src="/img/<%= $_ %>.jpg" alt="<%= $_ %>" /> <br/> <%= $_ %><p/>
+                <p> <img class="profile-waiting-image" src="./img/<%= $_ %>.jpg" alt="<%= $_ %>" /> <br/> <%= $_ %><p/>
               </div>
             </div>
           % }
@@ -555,18 +555,18 @@ __DATA__
 
     -->
 
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144x144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon-precomposed.png">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="./img/apple-touch-icon-144x144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="./img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="./img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="./img/apple-touch-icon-precomposed.png">
 
-    <link rel="stylesheet" href="/jquery/css/ui-lightness/jquery-ui-1.8.24.custom.css">
-    <link rel="stylesheet" href="/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="./jquery/css/ui-lightness/jquery-ui-1.8.24.custom.css">
+    <link rel="stylesheet" href="./font-awesome/css/font-awesome.css">
     % for my $css (@$csses) {
-      <link type="text/css" rel="stylesheet" href="<%= $css %>"> 
+      <link type="text/css" rel="stylesheet" href="./<%= $css %>"> 
     % }
-    <script src="/js/modernizr.js"></script>
+    <script src="./js/modernizr.js"></script>
 
 
 @@ layouts/body-load.html.ep
@@ -578,7 +578,7 @@ __DATA__
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
 
     % for my $js (@$jses) {
-      <script type="text/javascript" src="/js/<%= $js %>"></script>
+      <script type="text/javascript" src="./js/<%= $js %>"></script>
     % }
 
     % if ($google_analytics) {
@@ -614,12 +614,12 @@ __DATA__
           <ul>
             <li>
               <a href="https://twitter.com/seoulpm" target="_blank">
-                <img src="img/twitter_button.png" alt="twitter button" />
+                <img src="./img/twitter_button.png" alt="twitter button" />
               </a>
             </li>
             <li>
               <a href="http://www.facebook.com/groups/perl.kr/" target="_blank">
-                <img src="img/facebook_button.png" alt="facebook button" />
+                <img src="./img/facebook_button.png" alt="facebook button" />
               </a>
             </li>
           </ul>
