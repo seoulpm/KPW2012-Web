@@ -8,6 +8,7 @@ use Mojo::Util qw( md5_sum encode );
 
 use DBIx::Connector;
 use DateTime;
+use String::Random::NiceURL qw(id);
 use Text::MultiMarkdown;
 use Try::Tiny;
 
@@ -31,6 +32,55 @@ helper checksum => sub {
 
     return unless @strings;
     return md5_sum( encode('UTF-8', join(q{}, @strings)) );
+};
+
+helper add_register => sub {
+    my ( $self, $email, $name, $twitter, $message, $checksum ) = @_;
+
+    $self->app->log->warn("invalid email $email"),       return unless $email;
+    $self->app->log->warn("invalid name $name"),         return unless $name;
+    $self->app->log->warn("invalid checksum $checksum"), return
+        unless $checksum eq $self->checksum( $email, $name, $twitter, $message );
+
+    my $nick = q{};
+    if ($twitter =~ m{^https?://.*?twitter.com/(?:[#]!)*([^/]+)}) {
+        $nick = $1;
+    }
+
+    my $ret = $conn->txn(fixup => sub {
+        my $ret = try {
+            my $sth = $_->prepare( q{ SELECT * FROM register WHERE email=? } );
+            $sth->execute( $email );
+            my $ret = $sth->fetchrow_hashref;
+
+            if (!$ret) {
+                my $sth = $_->prepare(q{
+                    INSERT INTO register
+                        (email,name,twitter,nick,message,status,waiting,created_on)
+                        VALUES (?,?,?,?,?,?,?,?)
+                });
+                $ret = $sth->execute(
+                    $email,
+                    $name,
+                    $twitter,
+                    $nick,
+                    $message,
+                    'registered',
+                    id(64),
+                    DateTime->now->format_cldr("yyyy-MM-dd HH:mm::ss"),
+                );
+            }
+            else {
+                $ret = -1;
+            }
+
+            $ret;
+        };
+
+        return $ret;
+    });
+
+    return $ret;
 };
 
 helper add_contact => sub {
@@ -61,6 +111,26 @@ helper markdown => sub {
 };
 
 any '/' => 'index';
+
+any '/register' => sub {
+    my $self = shift;
+
+    my $email    = $self->param('email')    || q{};
+    my $name     = $self->param('name')     || q{};
+    my $twitter  = $self->param('twitter')  || q{};
+    my $message  = $self->param('message')  || q{};
+    my $checksum = $self->param('checksum') || q{};
+
+    my $ret = $self->add_register(
+        $email,
+        $name,
+        $twitter,
+        $message,
+        $checksum,
+    );
+
+    $self->respond_to( json => { json => { ret => $ret ? $ret : 0 } } );
+};
 
 any '/contact' => sub {
     my $self = shift;
@@ -117,7 +187,6 @@ __DATA__
           <div class="row">
             <div class="col_6 pre_4">
               <p>
-              
                 KPW 2012의 참가비는 <span class="text-color">1만원</span>입니다.
                 아래 등록 양식을 작성하신 후 참가비를 납부해주세요.
                 납부 완료후 확인이 끝나면 <span class="text-color">"확정"</span>
@@ -131,47 +200,47 @@ __DATA__
           </div>
           <div class="row">
             <div class="col_4">
-              <label for="id_email">Email</label>
+              <label for="register-email">Email</label>
             </div>
             <div class="col_6 suf_2 last">
               <div class="form-holder">
-                <input type="text" name="email" id="id_email" placeholder="등록 확인 메일을 전송할 주소" />
+                <input id="register-email" name="register-email" type="text" placeholder="등록 확인 메일을 전송할 주소" />
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col_4">
-              <label for="id_subject">Name</label>
+              <label for="register-name">Name</label>
             </div>
             <div class="col_6 suf_2 field-holder last">
               <div class="form-holder">
-                <input id="id_name" type="text" name="name" maxlength="150" placeholder="입금자명과 동일"/>
+                <input id="register-name" name="register-name" type="text" maxlength="150" placeholder="입금자명과 동일"/>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col_4">
-              <label for="id_subject">Twitter</label>
+              <label for="register-twitter">Twitter</label>
             </div>
             <div class="col_6 suf_2 field-holder last">
               <div class="form-holder">
-                <input id="id_twitter" type="text" name="twitter" maxlength="150" placeholder="트위터 주소"/>
+                <input id="register-twitter" name="register-twitter" type="text" maxlength="150" placeholder="트위터 주소"/>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col_4">
-              <label for="id_message">Message</label>
+              <label for="register-message">Message</label>
             </div>
             <div class="col_6 suf_2 field-holder last">
               <div class="form-holder">
-                <textarea id="id_message" rows="10" cols="40" name="message" placeholder="행사에 바라는 점"></textarea>
+                <textarea id="register-message" name="register-message" rows="10" cols="40" placeholder="행사에 바라는 점"></textarea>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col_1 pre_9">
-              <a href="#" class="submit-button suf_1">Submit</a>
+              <a href="#section-register" id="register-submit" class="submit-button suf_1">Submit</a>
             </div>
           </div>
         </form>
@@ -322,6 +391,7 @@ __DATA__
 %   jses  => [ qw( jquery.nav.js jquery.scrollTo.js md5.min.js onepage.js ) ];
 %
 % title 'Korean Perl Workshop 2012';
+<div id="error-dialog"><p id="error-message"></p></div>
 %= include 'section-home'
 %= include 'section-register'
 %= include 'section-schedule'
@@ -372,6 +442,7 @@ __DATA__
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon-precomposed.png">
 
+    <link rel="stylesheet" href="/jquery/css/ui-lightness/jquery-ui-1.8.24.custom.css">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.css">
     % for my $css (@$csses) {
       <link type="text/css" rel="stylesheet" href="<%= $css %>"> 
