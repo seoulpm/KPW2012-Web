@@ -12,6 +12,11 @@ Korean Perl Workshop 2012
     mysql> CREATE DATABASE IF NOT EXISTS `kpw2012`;
     mysql> GRANT ALL PRIVILEGES ON `kpw2012`.* TO <username>@localhost IDENTIFIED by "<password>";
     mysql> exit
-    mysql -u <username> -p kpw2012 < sql/schema-mysql.sql
+    $ mysql -u <username> -p kpw2012 < sql/schema-mysql.sql
     # edit db configuration `kpw2012-web.conf`
-    $ morbo -w kpw2012-web.conf kpw2012-web.pl
+    $ ./run    # develoment
+    $ ./deploy # deployment
+
+
+    $ start_server --pid-file=kpw2012.pid --status-file=kpw2012.status --restart    # graceful restart
+    $ kill `cat kpw2012.pid`    # kill service

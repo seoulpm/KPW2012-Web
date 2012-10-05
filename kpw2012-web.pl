@@ -251,7 +251,7 @@ get '/register/waiting' => sub {
     $self->redirect_to( '/#section-attender' );
 };
 
-get '/contact' => sub {
+post '/contact' => sub {
     my $self = shift;
 
     my $email    = $self->param('email')    || q{};
