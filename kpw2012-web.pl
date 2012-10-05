@@ -27,6 +27,22 @@ my $conn = DBIx::Connector->new( @{ app->config->{connect} } );
 $conn->dbh;
 die "cannot connect to database\n" unless $conn->connected;
 
+helper sendmail => sub {
+    my ( $self, %params ) = @_;
+
+    my $from    = $params{from}    || $self->app->config->{email}{username} || q{};
+    my $to      = $params{to}      || q{};
+    my $subject = $params{subject} || q{};
+    my $message = $params{message} || q{};
+
+    $self->app->log->warn("invalid email from"),    return unless $from;
+    $self->app->log->warn("invalid email to"),      return unless $to;
+    $self->app->log->warn("invalid email subject"), return unless $subject;
+    $self->app->log->warn("invalid email message"), return unless $message;
+
+    # go ahead!
+};
+
 helper checksum => sub {
     my ( $self, @strings ) = @_;
 
@@ -79,6 +95,32 @@ helper add_register => sub {
 
         return $ret;
     });
+
+    if ( $ret && $ret > 0 ) {
+        $conn->txn(fixup => sub {
+            try {
+                my $sth = $_->prepare( q{ SELECT * FROM register WHERE email=? } );
+                $sth->execute( $email );
+                my $ret = $sth->fetchrow_hashref;
+
+                if ($ret) {
+                    $self->sendmail(
+                        from    => $self->app->config->{email}{username},
+                        to      => $ret->{email},
+                        subject => $self->app->config->{email}{register_subject},
+                        message => sprintf(
+                            $self->app->config->{email}{register_message},
+                            $ret->{name},
+                            $ret->{email},
+                            $ret->{waiting},
+                            $ret->{email},
+                            $ret->{waiting},
+                        ),
+                    );
+                }
+            };
+        });
+    }
 
     return $ret;
 };
