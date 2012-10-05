@@ -114,4 +114,45 @@ $(document).ready(function() {
   // error dialog
   //
   $('#error-dialog').dialog({ autoOpen: false, title: 'Error', modal: true });
+
+  //
+  // attenders
+  //
+  var intervalSecond = 5;
+  var loop_attenders = function() {
+    $.ajax({
+      type: 'GET',
+      url: '/attenders',
+      headers: {
+        Accept: 'application/json'
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus);
+      },
+      success: function(data, textStatus, jqXHR) {
+        $("#section-attender .content div.row:nth-child(3)").empty()
+        $("#section-attender .content div.row:nth-child(5)").empty()
+        var html, user, userid, _i, _j, _len, _len1, _ref, _ref1;
+
+        _ref = data.confirmed;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          user = _ref[_i];
+          userid = ("" + user.email).replace(/@.*/, '');
+          html = "<div class=\"col_2\">\n  <div class=\"profile confirmed\">\n    <p>\n      <img alt=\"" + userid + "\" src=\"http://www.gravatar.com/avatar/" + (md5(user.email)) + "?s=132\" class=\"profile-confirmed-image\" style=\"height: 132px; width: 132px;\">\n      <br>\n      " + userid + "\n    </p>\n    <p>\n    </p>\n  </div>\n</div>";
+          $("#section-attender .content div.row:nth-child(3)").append(html);
+        }
+
+        _ref1 = data.waiting;
+        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+          user = _ref1[_j];
+          userid = ("" + user.email).replace(/@.*/, '');
+          html = "<div class=\"col_1\">\n  <div class=\"profile waiting\">\n    <p>\n      <img alt=\"" + userid + "\" src=\"http://www.gravatar.com/avatar/" + (md5(user.email)) + "?s=47\" class=\"profile-waiting-image\" style=\"height: 47px; width: 47px;\">\n      <br>\n      " + userid + "\n    </p>\n    <p>\n    </p>\n  </div>\n</div>";
+          $("#section-attender .content div.row:nth-child(5)").append(html);
+        }
+      }
+    });
+  };
+  loop_attenders.call(this);
+  setInterval(loop_attenders, intervalSecond * 1000);
+
 });

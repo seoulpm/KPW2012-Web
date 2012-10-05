@@ -269,6 +269,29 @@ post '/contact' => sub {
     $self->respond_to( json => { json => { ret => $ret ? 1 : 0 } } );
 };
 
+get '/attenders' => sub {
+    my $self = shift;
+
+    my (@confirmed, @waiting);
+    my $rv = $conn->run(fixup => sub {
+        try {
+            my $sth = $_->prepare( q{ SELECT * FROM register } );
+            my $rv = $sth->execute;
+            while (my $data = $sth->fetchrow_hashref) {
+                if ($data->{status} eq 'registered') {
+                    push @waiting, $data;
+                } else {
+                    push @confirmed, $data;
+                }
+            }
+
+            $rv;
+        };
+    });
+
+    $self->respond_to( json => { json => { confirmed => \@confirmed, waiting => \@waiting } } );
+};
+
 app->secret( app->defaults->{secret} );
 app->start;
 
