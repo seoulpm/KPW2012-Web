@@ -278,9 +278,9 @@ get '/attenders' => sub {
             my $sth = $_->prepare( q{ SELECT * FROM register } );
             my $rv = $sth->execute;
             while (my $data = $sth->fetchrow_hashref) {
-                if ($data->{status} eq 'registered') {
+                if ($data->{status} eq 'waiting') {
                     push @waiting, $data;
-                } else {
+                } elsif ($data->{status} eq 'confirmed') {
                     push @confirmed, $data;
                 }
             }
