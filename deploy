@@ -1,0 +1,2 @@
+#!/bin/sh
+start_server --port=3000 --pid-file=kpw2012.pid --status-file=kpw2012.status -- plackup -Ilib -s Starlet --access-log=access_log kpw2012-web.pl 1>/dev/null 2>&1 &
