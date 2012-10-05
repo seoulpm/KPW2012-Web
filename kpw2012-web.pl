@@ -4,11 +4,14 @@ use 5.010;
 use utf8;
 
 use Mojolicious::Lite;
-use Mojo::Util qw( md5_sum encode );
+use Mojo::Util qw( md5_sum encode url_escape );
 
 use DBIx::Connector;
 use DateTime;
-use String::Random::NiceURL qw(id);
+use File::Path qw( make_path );
+use File::Spec::Functions;
+use Storable;
+use String::Random::NiceURL qw( id );
 use Text::MultiMarkdown;
 use Try::Tiny;
 
@@ -40,7 +43,34 @@ helper sendmail => sub {
     $self->app->log->warn("invalid email subject"), return unless $subject;
     $self->app->log->warn("invalid email message"), return unless $message;
 
+    #
     # go ahead!
+    #
+    # Send mail via job-queue, direct sending,
+    # using file or etc... whatever you want. ;-)
+    #
+    my $maildir = catdir(
+            $self->app->home,
+            $self->app->config->{email}{maildir},
+    );
+
+    unless ( -e $maildir ) {
+        $self->app->log->debug("no maildir, making [$maildir]");
+        make_path($maildir);
+    }
+
+    store(
+        +{
+            from    => $from,
+            to      => $to,
+            subject => $subject,
+            message => $message,
+        },
+        catfile(
+            $maildir,
+            DateTime->now->epoch,
+        ),
+    );
 };
 
 helper checksum => sub {
@@ -101,20 +131,20 @@ helper add_register => sub {
             try {
                 my $sth = $_->prepare( q{ SELECT * FROM register WHERE email=? } );
                 $sth->execute( $email );
-                my $ret = $sth->fetchrow_hashref;
+                my $person = $sth->fetchrow_hashref;
 
-                if ($ret) {
+                if ($person) {
                     $self->sendmail(
                         from    => $self->app->config->{email}{username},
-                        to      => $ret->{email},
+                        to      => $person->{email},
                         subject => $self->app->config->{email}{register_subject},
                         message => sprintf(
                             $self->app->config->{email}{register_message},
-                            $ret->{name},
-                            $ret->{email},
-                            $ret->{waiting},
-                            $ret->{email},
-                            $ret->{waiting},
+                            $person->{name},
+                            url_escape( $person->{email} ),
+                            $person->{waiting},
+                            url_escape( $person->{email} ),
+                            $person->{waiting},
                         ),
                     );
                 }
@@ -152,9 +182,9 @@ helper markdown => sub {
     return $html;
 };
 
-any '/' => 'index';
+get '/' => 'index';
 
-any '/register' => sub {
+get '/register' => sub {
     my $self = shift;
 
     my $email    = $self->param('email')    || q{};
@@ -174,7 +204,54 @@ any '/register' => sub {
     $self->respond_to( json => { json => { ret => $ret ? $ret : 0 } } );
 };
 
-any '/contact' => sub {
+get '/register/waiting' => sub {
+    my $self = shift;
+
+    my $email    = $self->param('email')   || q{};
+    my $waiting  = $self->param('waiting') || q{};
+
+    my $person = $conn->run(fixup => sub {
+        try {
+            my $sth = $_->prepare( q{ SELECT * FROM register WHERE email=? } );
+            $sth->execute( $email );
+            my $ret = $sth->fetchrow_hashref;
+            $ret;
+        };
+    });
+
+    my $update;
+    if (
+        $person
+        && $person->{waiting}
+        && $person->{waiting} eq $waiting
+        && $person->{status}
+        && $person->{status} eq 'registered'
+    ) {
+        $update = $conn->run(fixup => sub {
+            try {
+                my $sth = $_->prepare(q{
+                    UPDATE register SET status=?, updated_on=? WHERE email=?
+                });
+                $sth->execute(
+                    'waiting',
+                    DateTime->now->format_cldr("yyyy-MM-dd HH:mm::ss"),
+                    $email,
+                );
+            };
+        });
+    }
+
+    if ($update) {
+        $self->app->log->debug("[$email] is now waiting list");
+    }
+    else {
+        $self->app->log->debug("[$email] nothing change");
+    }
+
+    $self->redirect_to( '/#section-attender' );
+};
+
+get '/contact' => sub {
     my $self = shift;
 
     my $email    = $self->param('email')    || q{};
