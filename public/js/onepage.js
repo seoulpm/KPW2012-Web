@@ -78,9 +78,9 @@ $(document).ready(function() {
 
     $.ajax({
       url: '/contact',
+      type: 'POST',
       headers: {
-          "Accept":       "application/json; charset=utf-8",
-          "Content-Type": "application/json; charset=utf-8"
+          "Accept":       "application/json; charset=utf-8"
       },
       data: {
         email:    email,
