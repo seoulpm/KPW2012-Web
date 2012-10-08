@@ -16,6 +16,15 @@ $(document).ready(function() {
   $('.profile-confirmed-image').css({'height': confirmed+'px'});
   $('.profile-waiting-image').css({'height': waiting+'px'});
 
+  var attachPath = function(path) {
+    path = path.replace(/^\//, '');
+    if (location.href.match(/\/$/)) {
+      return "" + location.href + path + "/";
+    } else {
+      return "" + location.href + "/" + path + "/";
+    }
+  }
+
   //
   // submit register form
   //
@@ -27,7 +36,7 @@ $(document).ready(function() {
     var checksum = md5( email + name + twitter + message );
 
     $.ajax({
-      url: '/register',
+      url: attachPath('/register'),
       type: 'POST',
       headers: {
           "Accept":       "application/json; charset=utf-8"
@@ -77,7 +86,7 @@ $(document).ready(function() {
     var checksum = md5( email + subject + message );
 
     $.ajax({
-      url: '/contact',
+      url: attachPath('/contact'),
       type: 'POST',
       headers: {
           "Accept":       "application/json; charset=utf-8"
@@ -122,7 +131,7 @@ $(document).ready(function() {
   var loop_attenders = function() {
     $.ajax({
       type: 'GET',
-      url: '/attenders',
+      url: attachPath('/attenders'),
       headers: {
         Accept: 'application/json'
       },
