@@ -118,7 +118,7 @@ $(document).ready(function() {
   //
   // attenders
   //
-  var intervalSecond = 5;
+  var intervalSecond = 10;
   var loop_attenders = function() {
     $.ajax({
       type: 'GET',
