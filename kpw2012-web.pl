@@ -10,6 +10,7 @@ use DBIx::Connector;
 use DateTime;
 use File::Path qw( make_path );
 use File::Spec::Functions;
+use Gravatar::URL;
 use Storable;
 use String::Random::NiceURL qw( id );
 use Text::MultiMarkdown;
@@ -78,6 +79,40 @@ helper checksum => sub {
 
     return unless @strings;
     return md5_sum( encode('UTF-8', join(q{}, @strings)) );
+};
+
+helper get_gravatar => sub {
+    my ( $self, %opts ) = @_;
+
+    my $url = gravatar_url(%opts);
+
+    return $url;
+};
+
+helper get_attenders => sub {
+    my $self = shift;
+
+    my (@confirmed, @waiting);
+    my $rv = $conn->run(fixup => sub {
+        try {
+            my $sth = $_->prepare( q{ SELECT * FROM register } );
+            my $rv = $sth->execute;
+            while (my $data = $sth->fetchrow_hashref) {
+                if ($data->{status} eq 'waiting') {
+                    push @waiting, $data;
+                } elsif ($data->{status} eq 'confirmed') {
+                    push @confirmed, $data;
+                }
+            }
+
+            $rv;
+        };
+    });
+
+    return +{
+        confirmed => \@confirmed,
+        waiting   => \@waiting,
+    };
 };
 
 helper add_register => sub {
@@ -272,24 +307,9 @@ post '/contact' => sub {
 get '/attenders' => sub {
     my $self = shift;
 
-    my (@confirmed, @waiting);
-    my $rv = $conn->run(fixup => sub {
-        try {
-            my $sth = $_->prepare( q{ SELECT * FROM register } );
-            my $rv = $sth->execute;
-            while (my $data = $sth->fetchrow_hashref) {
-                if ($data->{status} eq 'waiting') {
-                    push @waiting, $data;
-                } elsif ($data->{status} eq 'confirmed') {
-                    push @confirmed, $data;
-                }
-            }
+    my $attenders = $self->get_attenders;
 
-            $rv;
-        };
-    });
-
-    $self->respond_to( json => { json => { confirmed => \@confirmed, waiting => \@waiting } } );
+    $self->respond_to( json => { json => $attenders } );
 };
 
 app->secret( app->defaults->{secret} );
@@ -430,6 +450,11 @@ __DATA__
           </div>
         </div> <!-- row -->
 
+        %
+        %# get attenders
+        %
+        % my $attenders = get_attenders;
+
         <div class="row">
           <div class="col_8 pre_1">
             <h2>Confirmed.</h2>
@@ -437,10 +462,15 @@ __DATA__
         </div> <!-- row -->
 
         <div class="row">
-          % for (qw/ keedi ja3ck /) {
+          % for my $person ( @{ $attenders->{confirmed} } ) {
+            % my $gravatar = get_gravatar( email => $person->{email} );
             <div class="col_2">
               <div class="profile confirmed">
-                <p> <img class="profile-confirmed-image" src="./img/<%= $_ %>.jpg" alt="<%= $_ %>" /> <br/> <%= $_ %><p/>
+                <p>
+                  <img class="profile-confirmed-image" src="<%= $gravatar %>" alt="<%= $person->{name} %>" />
+                  <br/>
+                  <%= $person->{name} %>
+                </p>
               </div>
             </div>
           % }
@@ -453,10 +483,15 @@ __DATA__
         </div> <!-- row -->
 
         <div class="row">
-          % for (qw/ JEEN_LEE yongbin aanoaa rumidier /) {
+          % for my $person ( @{ $attenders->{waiting} } ) {
+            % my $gravatar = get_gravatar( email => $person->{email} );
             <div class="col_1">
               <div class="profile waiting">
-                <p> <img class="profile-waiting-image" src="./img/<%= $_ %>.jpg" alt="<%= $_ %>" /> <br/> <%= $_ %><p/>
+                <p>
+                  <img class="profile-waiting-image" src="<%= $gravatar %>" alt="<%= $person->{name} %>" />
+                  <br/>
+                  <%= $person->{name} %>
+                </p>
               </div>
             </div>
           % }
