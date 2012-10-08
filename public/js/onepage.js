@@ -154,5 +154,4 @@ $(document).ready(function() {
   };
   loop_attenders.call(this);
   setInterval(loop_attenders, intervalSecond * 1000);
-
 });
