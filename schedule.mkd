@@ -76,3 +76,4 @@ Lightning Talk
 
 - Look at This! Look at That! - 김건호(yuni)
 - Better than yesterday       - 이종진(JEEN)
+- Midnight of Free Software   - 조성재(jachin)
