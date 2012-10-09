@@ -358,11 +358,11 @@ __DATA__
           </div>
           <div class="row">
             <div class="col_4">
-              <label for="register-twitter">Twitter</label>
+              <label for="register-twitter">Twitter ID</label>
             </div>
             <div class="col_6 suf_2 field-holder last">
               <div class="form-holder">
-                <input id="register-twitter" name="register-twitter" type="text" maxlength="150" placeholder="트위터 주소"/>
+                <input id="register-twitter" name="register-twitter" type="text" maxlength="150" placeholder="@"/>
               </div>
             </div>
           </div>
