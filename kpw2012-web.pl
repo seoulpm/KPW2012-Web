@@ -559,6 +559,7 @@ __DATA__
 %
 % title 'Korean Perl Workshop 2012';
 <div id="error-dialog"><p id="error-message"></p></div>
+<div id="success-dialog"><p id="success-message"></p></div>
 %= include 'section-home'
 %= include 'section-register'
 %= include 'section-schedule'
