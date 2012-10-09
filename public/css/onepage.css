@@ -823,8 +823,10 @@ footer ul li {
     }
 
     #section-home {
-    /*background-size:auto 100%;*/
-        background-position: 40% center;
+        background: url('../img/camel_bg.png') #edefe8 no-repeat center bottom fixed;
+        background-size: auto;
+        background-position: auto;
+
     }
 
     #section-home .content {
