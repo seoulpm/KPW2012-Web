@@ -356,7 +356,7 @@ __DATA__
             </div>
             <div class="col_6 suf_2 last">
               <div class="form-holder">
-                <input id="register-email" name="register-email" type="text" placeholder="등록 확인 메일을 전송할 주소" />
+                <input id="register-email" name="register-email" type="text" placeholder="(required) 등록 확인 메일을 전송할 주소" />
               </div>
             </div>
           </div>
@@ -366,7 +366,7 @@ __DATA__
             </div>
             <div class="col_6 suf_2 field-holder last">
               <div class="form-holder">
-                <input id="register-name" name="register-name" type="text" maxlength="150" placeholder="입금자명과 동일"/>
+                <input id="register-name" name="register-name" type="text" maxlength="150" placeholder="(required) 입금자명과 동일"/>
               </div>
             </div>
           </div>
@@ -376,7 +376,7 @@ __DATA__
             </div>
             <div class="col_6 suf_2 field-holder last">
               <div class="form-holder">
-                <input id="register-twitter" name="register-twitter" type="text" maxlength="150" placeholder="@"/>
+                <input id="register-twitter" name="register-twitter" type="text" maxlength="150" placeholder="(optional) @"/>
               </div>
             </div>
           </div>
@@ -386,7 +386,7 @@ __DATA__
             </div>
             <div class="col_6 suf_2 field-holder last">
               <div class="form-holder">
-                <textarea id="register-message" name="register-message" rows="10" cols="40" placeholder="행사에 바라는 점"></textarea>
+                <textarea id="register-message" name="register-message" rows="10" cols="40" placeholder="(optional) 행사에 바라는 점"></textarea>
               </div>
             </div>
           </div>
