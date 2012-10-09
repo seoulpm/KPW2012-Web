@@ -100,8 +100,18 @@ helper add_register => sub {
         unless $checksum eq $self->checksum( $email, $name, $twitter, $message );
 
     my $nick = q{};
-    if ($twitter =~ m{^https?://.*?twitter.com/(?:[#]!)*([^/]+)}) {
+    if (!$twitter) {
+        $nick = $email;
+        $nick =~ s/\@.*//;
+    }
+    elsif ($twitter =~ m{^https?://.*?twitter.com/(?:[#]!)*([^/]+)}) {
         $nick = $1;
+    }
+    elsif ($twitter =~ m{^\@(.+)}) {
+        $nick = $1;
+    }
+    else {
+        $nick = $twitter;
     }
 
     my $ret = $conn->txn(fixup => sub {
