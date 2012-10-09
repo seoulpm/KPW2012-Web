@@ -14,12 +14,16 @@ Makefile.old
 MANIFEST.bak
 META.yml
 MYMETA.yml
+MYMETA.json
 nytprof.out
 pm_to_blib
 sendmail/
 access_log
+db.conf
+kpw2012.pid
 
 #
 # editor swap file
 #
 *.swp
+\#*#
