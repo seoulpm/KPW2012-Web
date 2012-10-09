@@ -8,6 +8,7 @@ Korean Perl Workshop 2012
     $ git clone git@github.com:seoulpm/KPW2012-Web.git    # read/write
     $ cd KPW2012-Web/
     $ cpanm --installdeps .
+    $ cp db.conf.sample db.conf
     $ mysql -u root -p
     mysql> CREATE DATABASE IF NOT EXISTS `kpw2012`;
     mysql> GRANT ALL PRIVILEGES ON `kpw2012`.* TO <username>@localhost IDENTIFIED by "<password>";
