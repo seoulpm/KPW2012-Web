@@ -66,7 +66,7 @@ helper get_gravatar => sub {
     return $url;
 };
 
-helper get_attenders => sub {
+helper get_attendees => sub {
     my $self = shift;
 
     my (@confirmed, @waiting);
@@ -273,7 +273,7 @@ get '/register/waiting' => sub {
         $self->app->log->debug("[$email] nothing change");
     }
 
-    $self->redirect_to( '/#section-attender' );
+    $self->redirect_to( '/#section-attendee' );
 };
 
 post '/contact' => sub {
@@ -294,12 +294,12 @@ post '/contact' => sub {
     $self->respond_to( json => { json => { ret => $ret ? 1 : 0 } } );
 };
 
-get '/attenders' => sub {
+get '/attendees' => sub {
     my $self = shift;
 
-    my $attenders = $self->get_attenders;
+    my $attendees = $self->get_attendees;
 
-    $self->respond_to( json => { json => $attenders } );
+    $self->respond_to( json => { json => $attendees } );
 };
 
 app->secret( app->defaults->{secret} );
@@ -420,8 +420,8 @@ __DATA__
     </section>
 
 
-@@ section-attender.html.ep
-    <section id="section-attender" class="page-section-scroll">
+@@ section-attendee.html.ep
+    <section id="section-attendee" class="page-section-scroll">
       <header class="row">
         <div class="col_6 last">
         <h1>Attenders.</h1>
@@ -441,9 +441,9 @@ __DATA__
         </div> <!-- row -->
 
         %
-        %# get attenders
+        %# get attendees
         %
-        % my $attenders = get_attenders;
+        % my $attendees = get_attendees;
 
         <div class="row">
           <div class="col_8 pre_1">
@@ -452,7 +452,7 @@ __DATA__
         </div> <!-- row -->
 
         <div class="row">
-          % for my $person ( @{ $attenders->{confirmed} } ) {
+          % for my $person ( @{ $attendees->{confirmed} } ) {
             % my $gravatar = get_gravatar( email => $person->{email} );
             <div class="col_2">
               <div class="profile confirmed">
@@ -473,7 +473,7 @@ __DATA__
         </div> <!-- row -->
 
         <div class="row">
-          % for my $person ( @{ $attenders->{waiting} } ) {
+          % for my $person ( @{ $attendees->{waiting} } ) {
             % my $gravatar = get_gravatar( email => $person->{email} );
             <div class="col_1">
               <div class="profile waiting">
@@ -563,7 +563,7 @@ __DATA__
 %= include 'section-home'
 %= include 'section-register'
 %= include 'section-schedule'
-%= include 'section-attender'
+%= include 'section-attendee'
 %= include 'section-contact'
 
 
