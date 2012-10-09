@@ -89,11 +89,11 @@ label {
     font-family: 'Patua One', 'NanumMyeongjo', serif;
 }
 
-::-webkit-input-placeholder  { color:#444; opacity: 0.2; }
-input:-moz-placeholder { color:#444; opacity: 0.2; }
+::-webkit-input-placeholder  { color:#444; opacity: 0.4; }
+input:-moz-placeholder { color:#444; opacity: 0.4; }
 
-::-webkit-textarea-placeholder  { color:#444; opacity: 0.2; }
-textarea:-moz-placeholder { color:#444; opacity: 0.2; }
+::-webkit-textarea-placeholder  { color:#444; opacity: 0.4; }
+textarea:-moz-placeholder { color:#444; opacity: 0.4; }
 
 #main-nav {
     position: fixed;
