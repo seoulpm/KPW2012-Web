@@ -424,7 +424,7 @@ __DATA__
     <section id="section-attendee" class="page-section-scroll">
       <header class="row">
         <div class="col_6 last">
-        <h1>Attenders.</h1>
+        <h1>Attendees.</h1>
         </div>
       </header>
       <div class="content">
