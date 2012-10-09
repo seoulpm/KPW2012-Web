@@ -60,7 +60,7 @@ helper checksum => sub {
 helper get_gravatar => sub {
     my ( $self, %opts ) = @_;
 
-    $opts{default} ||= 'http://st.pimg.net/perlweb/images/camel_head.v25e738a.png';
+    $opts{default} ||= 'http://upload.wikimedia.org/wikipedia/en/e/e0/Programming-republic-of-perl.png';
     my $url = gravatar_url(%opts);
 
     return $url;
