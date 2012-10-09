@@ -250,7 +250,7 @@ get '/register/waiting' => sub {
         && $person->{waiting}
         && $person->{waiting} eq $waiting
         && $person->{status}
-        && $person->{status} eq 'registered'
+        && $person->{status} eq 'sent'
     ) {
         $update = $conn->run(fixup => sub {
             try {
