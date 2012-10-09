@@ -457,9 +457,9 @@ __DATA__
             <div class="col_2">
               <div class="profile confirmed">
                 <p>
-                  <img class="profile-confirmed-image" src="<%= $gravatar %>" alt="<%= $person->{name} %>" />
+                  <img class="profile-confirmed-image" src="<%= $gravatar %>" alt="<%= $person->{nick} %>" />
                   <br/>
-                  <%= $person->{name} %>
+                  <%= $person->{nick} %>
                 </p>
               </div>
             </div>
@@ -478,9 +478,9 @@ __DATA__
             <div class="col_1">
               <div class="profile waiting">
                 <p>
-                  <img class="profile-waiting-image" src="<%= $gravatar %>" alt="<%= $person->{name} %>" />
+                  <img class="profile-waiting-image" src="<%= $gravatar %>" alt="<%= $person->{nick} %>" />
                   <br/>
-                  <%= $person->{name} %>
+                  <%= $person->{nick} %>
                 </p>
               </div>
             </div>

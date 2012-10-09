@@ -148,21 +148,20 @@ $(document).ready(function() {
       success: function(data, textStatus, jqXHR) {
         $("#section-attender .content div.row:nth-child(3)").empty()
         $("#section-attender .content div.row:nth-child(5)").empty()
-        var html, user, userid, _i, _j, _len, _len1, _ref, _ref1;
+        var html, user, _i, _j, _len, _len1, _ref, _ref1;
 
         _ref = data.confirmed;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           user = _ref[_i];
-          userid = ("" + user.email).replace(/@.*/, '');
-          html = "<div class=\"col_2\">\n  <div class=\"profile confirmed\">\n    <p>\n      <img alt=\"" + userid + "\" src=\"http://www.gravatar.com/avatar/" + (md5(user.email)) + "?d=" + (encodeURI('http://st.pimg.net/perlweb/images/camel_head.v25e738a.png')) + "&s=132\" class=\"profile-confirmed-image\" style=\"height: 132px; width: 132px;\">\n      <br>\n      " + userid + "\n    </p>\n    <p>\n    </p>\n  </div>\n</div>";
+          html = "<div class=\"col_2\">\n  <div class=\"profile confirmed\">\n    <p>\n      <img alt=\"" + user.nick + "\" src=\"http://www.gravatar.com/avatar/" + (md5(user.email)) + "?d=" + (encodeURI('http://st.pimg.net/perlweb/images/camel_head.v25e738a.png')) + "&s=132\" class=\"profile-confirmed-image\" style=\"height: 132px; width: 132px;\">\n      <br>\n      " + user.nick + "\n    </p>\n    <p>\n    </p>\n  </div>\n</div>";
           $("#section-attender .content div.row:nth-child(3)").append(html);
         }
 
         _ref1 = data.waiting;
         for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
           user = _ref1[_j];
-          userid = ("" + user.email).replace(/@.*/, '');
-          html = "<div class=\"col_1\">\n  <div class=\"profile waiting\">\n    <p>\n      <img alt=\"" + userid + "\" src=\"http://www.gravatar.com/avatar/" + (md5(user.email)) + "?d=" + (encodeURI('http://st.pimg.net/perlweb/images/camel_head.v25e738a.png')) + "&s=47\" class=\"profile-waiting-image\" style=\"height: 47px; width: 47px;\">\n      <br>\n      " + userid + "\n    </p>\n    <p>\n    </p>\n  </div>\n</div>";
+          user.nick = ("" + user.email).replace(/@.*/, '');
+          html = "<div class=\"col_1\">\n  <div class=\"profile waiting\">\n    <p>\n      <img alt=\"" + user.nick + "\" src=\"http://www.gravatar.com/avatar/" + (md5(user.email)) + "?d=" + (encodeURI('http://st.pimg.net/perlweb/images/camel_head.v25e738a.png')) + "&s=47\" class=\"profile-waiting-image\" style=\"height: 47px; width: 47px;\">\n      <br>\n      " + user.nick + "\n    </p>\n    <p>\n    </p>\n  </div>\n</div>";
           $("#section-attender .content div.row:nth-child(5)").append(html);
         }
       }
