@@ -517,7 +517,7 @@ footer ul li {
     background-position: auto;
 }
 
-#section-attender {
+#section-attendee {
     background: url('../img/camel.png') no-repeat center bottom fixed,
     url('../img/escheresque_blue_bg.png');
     background-size: auto, auto;
@@ -525,32 +525,32 @@ footer ul li {
     color: white;
 }
 
-#section-attender .content {
+#section-attendee .content {
     height: 70%;
 }
 
-#section-attender .row {
+#section-attendee .row {
     margin-bottom: 1.9em;
 }
 
-#section-attender p {
+#section-attendee p {
     color: white;
     font-size: 1.6em;
     line-height: 1.3em;
 }
 
-#section-attender a {
+#section-attendee a {
     color: #aa145b;
     font-weight: bold;
     text-decoration: none;
 }
 
-#section-attender a:hover {
+#section-attendee a:hover {
     color: yellow;
     text-decoration: underline;
 }
 
-#section-attender .content .profile p {
+#section-attendee .content .profile p {
     margin-bottom: 1em;
     text-align: center;
     text-shadow: -1px -1px 0 #000,
@@ -559,20 +559,20 @@ footer ul li {
        1px 1px 0 #000;
 }
 
-#section-attender .content .confirmed p {
+#section-attendee .content .confirmed p {
     font-size: 1.4em;
 }
 
-#section-attender .content .waiting p {
+#section-attendee .content .waiting p {
     font-size: 0.8em;
 }
 
-#section-attender .content .profile img {
+#section-attendee .content .profile img {
     border: solid 1px white;
     width: 90%;
 }
 
-.no-multiplebgs #section-attender {
+.no-multiplebgs #section-attendee {
     background: url('../img/camel.png') #148aee no-repeat center bottom fixed;
     background-size: auto;
     background-position: auto;
@@ -863,7 +863,7 @@ footer ul li {
         margin-bottom: 1.4em;
     }
 
-    #section-attender .content {
+    #section-attendee .content {
         margin-right: 140px;
     }
 

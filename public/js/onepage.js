@@ -132,13 +132,13 @@ $(document).ready(function() {
   $('#success-dialog').dialog({ autoOpen: false, title: 'Success', modal: true });
 
   //
-  // attenders
+  // attendees
   //
   var intervalSecond = 10;
-  var loop_attenders = function() {
+  var loop_attendees = function() {
     $.ajax({
       type: 'GET',
-      url: attachPath('/attenders'),
+      url: attachPath('/attendees'),
       headers: {
         Accept: 'application/json'
       },
@@ -146,15 +146,15 @@ $(document).ready(function() {
         console.log(textStatus);
       },
       success: function(data, textStatus, jqXHR) {
-        $("#section-attender .content div.row:nth-child(3)").empty()
-        $("#section-attender .content div.row:nth-child(5)").empty()
+        $("#section-attendee .content div.row:nth-child(3)").empty()
+        $("#section-attendee .content div.row:nth-child(5)").empty()
         var html, user, _i, _j, _len, _len1, _ref, _ref1;
 
         _ref = data.confirmed;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           user = _ref[_i];
           html = "<div class=\"col_2\">\n  <div class=\"profile confirmed\">\n    <p>\n      <img alt=\"" + user.nick + "\" src=\"http://www.gravatar.com/avatar/" + (md5(user.email)) + "?d=" + (encodeURI('http://upload.wikimedia.org/wikipedia/en/e/e0/Programming-republic-of-perl.png')) + "&s=132\" class=\"profile-confirmed-image\" style=\"height: 132px; width: 132px;\">\n      <br>\n      " + user.nick + "\n    </p>\n    <p>\n    </p>\n  </div>\n</div>";
-          $("#section-attender .content div.row:nth-child(3)").append(html);
+          $("#section-attendee .content div.row:nth-child(3)").append(html);
         }
 
         _ref1 = data.waiting;
@@ -162,11 +162,11 @@ $(document).ready(function() {
           user = _ref1[_j];
           user.nick = ("" + user.email).replace(/@.*/, '');
           html = "<div class=\"col_1\">\n  <div class=\"profile waiting\">\n    <p>\n      <img alt=\"" + user.nick + "\" src=\"http://www.gravatar.com/avatar/" + (md5(user.email)) + "?d=" + (encodeURI('http://upload.wikimedia.org/wikipedia/en/e/e0/Programming-republic-of-perl.png')) + "&s=47\" class=\"profile-waiting-image\" style=\"height: 47px; width: 47px;\">\n      <br>\n      " + user.nick + "\n    </p>\n    <p>\n    </p>\n  </div>\n</div>";
-          $("#section-attender .content div.row:nth-child(5)").append(html);
+          $("#section-attendee .content div.row:nth-child(5)").append(html);
         }
       }
     });
   };
-  loop_attenders.call(this);
-  setInterval(loop_attenders, intervalSecond * 1000);
+  loop_attendees.call(this);
+  setInterval(loop_attendees, intervalSecond * 1000);
 });
