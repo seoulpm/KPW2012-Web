@@ -18,10 +18,10 @@ $(document).ready(function() {
 
   var attachPath = function(path) {
     path = path.replace(/^\//, '');
-    if (location.href.match(/\/$/)) {
-      return "" + location.href + path + "/";
+    if (location.pathname.match(/\/$/)) {
+      return "" + location.pathname + path + "/";
     } else {
-      return "" + location.href + "/" + path + "/";
+      return "" + location.pathname + "/" + path + "/";
     }
   }
 
