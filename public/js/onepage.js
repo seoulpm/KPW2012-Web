@@ -65,6 +65,9 @@ $(document).ready(function() {
           return;
         }
 
+        $("#success-dialog").html('Registration completed. Please check your e-mail to be in waiting list');
+        $('#success-dialog').dialog('open');
+
         $("#register-email").val('');
         $("#register-name").val('');
         $("#register-twitter").val('');
@@ -109,6 +112,9 @@ $(document).ready(function() {
           return;
         }
 
+        $("#success-dialog").html('Sending message is completed.');
+        $('#success-dialog').dialog('open');
+
         $("#contact-email").val('');
         $("#contact-subject").val('');
         $("#contact-message").val('');
@@ -120,9 +126,10 @@ $(document).ready(function() {
   });
 
   //
-  // error dialog
+  // error & success dialog
   //
   $('#error-dialog').dialog({ autoOpen: false, title: 'Error', modal: true });
+  $('#success-dialog').dialog({ autoOpen: false, title: 'Success', modal: true });
 
   //
   // attenders
