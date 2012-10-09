@@ -82,5 +82,5 @@ Perl Web App 에서 사용되는 다양한 테스트 전략과 지속적인 통�
 Lightning Talk
 ---------------
 
-- Look at This! Look at That! - 김건호(yuni)
-- Perl Numbers                - 이종진(JEEN)
+- Look at This! - 김건호(yuni)
+- Perl Numbers  - 이종진(JEEN)
