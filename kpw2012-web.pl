@@ -100,8 +100,18 @@ helper add_register => sub {
         unless $checksum eq $self->checksum( $email, $name, $twitter, $message );
 
     my $nick = q{};
-    if ($twitter =~ m{^https?://.*?twitter.com/(?:[#]!)*([^/]+)}) {
+    if (!$twitter) {
+        $nick = $email;
+        $nick =~ s/\@.*//;
+    }
+    elsif ($twitter =~ m{^https?://.*?twitter.com/(?:[#]!)*([^/]+)}) {
         $nick = $1;
+    }
+    elsif ($twitter =~ m{^\@(.+)}) {
+        $nick = $1;
+    }
+    else {
+        $nick = $twitter;
     }
 
     my $ret = $conn->txn(fixup => sub {
@@ -358,11 +368,11 @@ __DATA__
           </div>
           <div class="row">
             <div class="col_4">
-              <label for="register-twitter">Twitter</label>
+              <label for="register-twitter">Twitter ID</label>
             </div>
             <div class="col_6 suf_2 field-holder last">
               <div class="form-holder">
-                <input id="register-twitter" name="register-twitter" type="text" maxlength="150" placeholder="트위터 주소"/>
+                <input id="register-twitter" name="register-twitter" type="text" maxlength="150" placeholder="@"/>
               </div>
             </div>
           </div>
