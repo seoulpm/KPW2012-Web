@@ -121,3 +121,4 @@ Lightning Talk
 
 - Look at This! - 김건호(yuni)
 - Perl Numbers  - 이종진(JEEN)
+- 나의 Perl 투신기:: 보다 나은 Perl 개미지옥을 위하여 - 윤경준(JellyPo)
