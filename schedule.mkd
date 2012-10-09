@@ -60,6 +60,16 @@ Perl을 위한 Web App 실행 환경 꾸미기
 - uWSGI- Application server
 - PSGI, Perlbrew - Perl
 
+
+Perl 과 함께하는 Semantic Web
+-----------------------------
+
+김재철 - @ja3ck
+
+### 초록
+
+()
+
 Perl Web App 테스트 전략
 -------------------------------
 
