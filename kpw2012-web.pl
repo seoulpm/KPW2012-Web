@@ -8,10 +8,7 @@ use Mojo::Util qw( md5_sum encode url_escape );
 
 use DBIx::Connector;
 use DateTime;
-use File::Path qw( make_path );
-use File::Spec::Functions;
 use Gravatar::URL;
-use Storable;
 use String::Random::NiceURL qw( id );
 use Text::MultiMarkdown;
 use Try::Tiny;
@@ -50,28 +47,7 @@ helper sendmail => sub {
     # Send mail via job-queue, direct sending,
     # using file or etc... whatever you want. ;-)
     #
-    my $maildir = catdir(
-            $self->app->home,
-            $self->app->config->{email}{maildir},
-    );
-
-    unless ( -e $maildir ) {
-        $self->app->log->debug("no maildir, making [$maildir]");
-        make_path($maildir);
-    }
-
-    store(
-        +{
-            from    => $from,
-            to      => $to,
-            subject => $subject,
-            message => $message,
-        },
-        catfile(
-            $maildir,
-            DateTime->now->epoch,
-        ),
-    );
+    $self->app->log->debug("send mail [$from] -> [$to]");
 };
 
 helper checksum => sub {
