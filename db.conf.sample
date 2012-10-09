@@ -1,0 +1,19 @@
+#!/usr/bin/env perl
+
+use utf8;
+use strict;
+use warnings;
+
++[
+    'dbi:mysql:database=kpw2012',
+    'dbusername',
+    'dbpassword',
+    {
+        RaiseError           => 1,
+        AutoCommit           => 1,
+        mysql_enable_utf8    => 1,
+        mysql_auto_reconnect => 1,
+        on_connect_do =>
+            [ q{SET NAMES 'utf8'}, q{SET CHARACTER SET 'utf8'} ],
+    },
+];
