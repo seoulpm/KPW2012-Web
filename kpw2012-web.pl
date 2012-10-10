@@ -60,13 +60,13 @@ helper checksum => sub {
 helper get_gravatar => sub {
     my ( $self, %opts ) = @_;
 
-    $opts{default} ||= 'http://st.pimg.net/perlweb/images/camel_head.v25e738a.png';
+    $opts{default} ||= 'http://upload.wikimedia.org/wikipedia/en/e/e0/Programming-republic-of-perl.png';
     my $url = gravatar_url(%opts);
 
     return $url;
 };
 
-helper get_attenders => sub {
+helper get_attendees => sub {
     my $self = shift;
 
     my (@confirmed, @waiting);
@@ -273,7 +273,7 @@ get '/register/waiting' => sub {
         $self->app->log->debug("[$email] nothing change");
     }
 
-    $self->redirect_to( '/#section-attender' );
+    $self->redirect_to( '/#section-attendee' );
 };
 
 post '/contact' => sub {
@@ -294,12 +294,12 @@ post '/contact' => sub {
     $self->respond_to( json => { json => { ret => $ret ? 1 : 0 } } );
 };
 
-get '/attenders' => sub {
+get '/attendees' => sub {
     my $self = shift;
 
-    my $attenders = $self->get_attenders;
+    my $attendees = $self->get_attendees;
 
-    $self->respond_to( json => { json => $attenders } );
+    $self->respond_to( json => { json => $attendees } );
 };
 
 app->secret( app->defaults->{secret} );
@@ -356,7 +356,7 @@ __DATA__
             </div>
             <div class="col_6 suf_2 last">
               <div class="form-holder">
-                <input id="register-email" name="register-email" type="text" placeholder="등록 확인 메일을 전송할 주소" />
+                <input id="register-email" name="register-email" type="text" placeholder="(required) 등록 확인 메일을 전송할 주소" />
               </div>
             </div>
           </div>
@@ -366,7 +366,7 @@ __DATA__
             </div>
             <div class="col_6 suf_2 field-holder last">
               <div class="form-holder">
-                <input id="register-name" name="register-name" type="text" maxlength="150" placeholder="입금자명과 동일"/>
+                <input id="register-name" name="register-name" type="text" maxlength="150" placeholder="(required) 입금자명과 동일"/>
               </div>
             </div>
           </div>
@@ -376,7 +376,7 @@ __DATA__
             </div>
             <div class="col_6 suf_2 field-holder last">
               <div class="form-holder">
-                <input id="register-twitter" name="register-twitter" type="text" maxlength="150" placeholder="@"/>
+                <input id="register-twitter" name="register-twitter" type="text" maxlength="150" placeholder="(optional) @"/>
               </div>
             </div>
           </div>
@@ -386,7 +386,7 @@ __DATA__
             </div>
             <div class="col_6 suf_2 field-holder last">
               <div class="form-holder">
-                <textarea id="register-message" name="register-message" rows="10" cols="40" placeholder="행사에 바라는 점"></textarea>
+                <textarea id="register-message" name="register-message" rows="10" cols="40" placeholder="(optional) 행사에 바라는 점"></textarea>
               </div>
             </div>
           </div>
@@ -420,11 +420,11 @@ __DATA__
     </section>
 
 
-@@ section-attender.html.ep
-    <section id="section-attender" class="page-section-scroll">
+@@ section-attendee.html.ep
+    <section id="section-attendee" class="page-section-scroll">
       <header class="row">
         <div class="col_6 last">
-        <h1>Attenders.</h1>
+        <h1>Attendees.</h1>
         </div>
       </header>
       <div class="content">
@@ -441,9 +441,9 @@ __DATA__
         </div> <!-- row -->
 
         %
-        %# get attenders
+        %# get attendees
         %
-        % my $attenders = get_attenders;
+        % my $attendees = get_attendees;
 
         <div class="row">
           <div class="col_8 pre_1">
@@ -452,7 +452,7 @@ __DATA__
         </div> <!-- row -->
 
         <div class="row">
-          % for my $person ( @{ $attenders->{confirmed} } ) {
+          % for my $person ( @{ $attendees->{confirmed} } ) {
             % my $gravatar = get_gravatar( email => $person->{email} );
             <div class="col_2">
               <div class="profile confirmed">
@@ -473,7 +473,7 @@ __DATA__
         </div> <!-- row -->
 
         <div class="row">
-          % for my $person ( @{ $attenders->{waiting} } ) {
+          % for my $person ( @{ $attendees->{waiting} } ) {
             % my $gravatar = get_gravatar( email => $person->{email} );
             <div class="col_1">
               <div class="profile waiting">
@@ -563,7 +563,7 @@ __DATA__
 %= include 'section-home'
 %= include 'section-register'
 %= include 'section-schedule'
-%= include 'section-attender'
+%= include 'section-attendee'
 %= include 'section-contact'
 
 
