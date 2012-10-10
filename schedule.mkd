@@ -44,7 +44,7 @@ Handler Socket을 이용하여 좋은 장점은 여러가지가 있습니다.
 Perl을 위한 Web App 실행 환경 꾸미기
 -----------------------------------------------
 
-김건호 - Yuni
+Yuni
 
 ### 초록
 
@@ -84,7 +84,7 @@ JEEN
 
 > 하나의 웹앱을 만들고 서비스하기 위해서는 선택해야하는 것들이 무척많습니다.
 
-라고 김건호님께서 말씀하신 것처럼 어떤 테스트 전략을 취할 것인가 하는 점 역시 중요합니다.
+라고 Yuni님께서 말씀하신 것처럼 어떤 테스트 전략을 취할 것인가 하는 점 역시 중요합니다.
 Perl Web App 에서 사용되는 다양한 테스트 전략과 지속적인 통합전략을 생각해봅니다.
 
 - Test::* : CPAN 의 은총을 받은 테스트코드 작성방법
@@ -140,7 +140,7 @@ Research on CJKV Input Method System
 Lightning Talk
 ---------------
 
-- Look at This! - 김건호(yuni)
+- Look at This! - Yuni
 - Perl Numbers  - JEEN
 - 나의 Perl 투신기:: 보다 나은 Perl 개미지옥을 위하여 - JellyPo
 - 생활속의 펄 - 정경훈(eeyees)
