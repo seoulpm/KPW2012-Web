@@ -72,7 +72,7 @@ helper get_attendees => sub {
     my (@confirmed, @waiting);
     my $rv = $conn->run(fixup => sub {
         try {
-            my $sth = $_->prepare( q{ SELECT * FROM register } );
+            my $sth = $_->prepare( q{ SELECT * FROM register ORDER BY status, updated_on } );
             my $rv = $sth->execute;
             while (my $data = $sth->fetchrow_hashref) {
                 given ( $data->{status} ) {
