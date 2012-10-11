@@ -331,7 +331,7 @@ __DATA__
           <div class="col_8 last">
             <h1>Korean <span class="text-color">Perl</span> Workshop 2012</h1>
             <h2>
-              on <span class="text-color">Sat. Oct. 20th, 2012</span> between <span class="text-color">14:00 - 20:00</span> <br />
+              on <span class="text-color">Sat. Oct. 20th, 2012</span> between <span class="text-color">13:30 - 20:00</span> <br />
               at <a href="http://www.cnnthebiz.com/booth/booth01_8.asp">CNN the Biz 강남교육연수 센터</a>
               <span class="text-color">
                 <a href="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EA%B0%95%EB%82%A8%EA%B5%AC+%EC%97%AD%EC%82%BC%EB%8F%99+619-16&hl=ko&ie=UTF8&ll=37.5021,127.027016&spn=0.174316,0.41851&sll=37.501433,127.026848&sspn=0.005481,0.013078&hnear=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD+%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EA%B0%95%EB%82%A8%EA%B5%AC+%EC%97%AD%EC%82%BC%EB%8F%99+619-16&t=m&z=12&iwloc=A"><i class=" icon-map-marker"></i></a>
