@@ -668,6 +668,98 @@ footer ul li {
     background-position: auto;
 }
 
+#section-faq {
+    background: url('../img/camel-alpha-25.png') no-repeat center bottom fixed,
+    url('../img/escheresque_beige_bg.png') #dbd3d3;
+    background-size: auto, auto;
+    background-position: auto, 0 0;
+    color: #111;
+}
+
+#section-faq header {
+    -moz-transition: opacity 0.25s ease-out;
+    -webkit-transition: opacity 0.25s ease-out;
+    -o-transition: opacity 0.25s ease-out;
+    transition: opacity 0.25s ease-out;
+    color: #ed145b;
+}
+
+#section-faq header h1 {
+    color: #ed145b;
+    text-shadow: 3px 3px 0 #fff,
+      -1px -1px 0 #fff,
+       1px -1px 0 #fff,
+      -1px  1px 0 #fff,
+       1px  1px 0 #fff;
+}
+
+#section-faq header.hide {
+    opacity: 0;
+}
+
+#section-faq .content {
+    -moz-transition: opacity 0.25s ease-out;
+    -webkit-transition: opacity 0.25s ease-out;
+    -o-transition: opacity 0.25s ease-out;
+    transition: opacity 0.25s ease-out;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#section-faq .content.hide {
+    opacity: 0;
+}
+
+#section-faq .content h2 {
+    margin-top: 1em;
+    font-size: 2em;
+    color: #ed145b;
+    text-shadow: -1px -1px 0 #aaa,
+      1px -1px 0 #aaa,
+      -1px 1px 0 #aaa,
+       1px 1px 0 #aaa;
+}
+
+#section-faq .content p {
+    font-size: 1.2em;
+    line-height: 1.6em;
+    padding: 10px;
+    margin-left: 30px;
+}
+
+#section-faq .content li {
+    font-size: 1.2em;
+    line-height: 1.2em;
+    list-style: none;
+    margin-bottom: 10px;
+    margin-left: 30px;
+}
+
+#section-faq a {
+    color: #00aaf3;
+    text-shadow: -1px -1px 0 #666,
+      1px -1px 0 #666,
+      -1px 1px 0 #666,
+       1px 1px 0 #666;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#section-faq a:hover {
+    color: #f3aa00;
+    text-decoration: underline;
+}
+
+#section-faq .spacer {
+    margin: 60px;
+}
+
+.no-multiplebgs #section-faq {
+    background: url('../img/camel.png') #dbd3d3 no-repeat center bottom fixed;
+    background-size: auto;
+    background-position: auto;
+}
+
 #section-contact {
     background: url('../img/camel-alpha.png') no-repeat center bottom fixed,
     url("../img/contact_bg.jpg");
@@ -879,6 +971,11 @@ footer ul li {
     }
 
     #section-schedule .content {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #section-faq .content {
         margin-left: 0;
         margin-right: 0;
     }
@@ -1170,6 +1267,32 @@ footer ul li {
     }
 
     #section-schedule .content {
+        -moz-transition: opacity 0.25s ease-out;
+        -webkit-transition: opacity 0.25s ease-out;
+        -o-transition: opacity 0.25s ease-out;
+        transition: opacity 0.25s ease-out;
+    }
+
+    #section-faq .content p {
+        font-size: 1.1em;
+        line-height: 1.6em;
+        padding: 10px;
+        margin-left: 0;
+        margin-right: 20px;
+    }
+
+    #section-faq .content li {
+        font-size: 1.1em;
+        line-height: 1.2em;
+        margin-left: 0;
+        margin-right: 20px;
+    }
+
+    #section-faq {
+        background: #dbd3d3;
+    }
+
+    #section-faq .content {
         -moz-transition: opacity 0.25s ease-out;
         -webkit-transition: opacity 0.25s ease-out;
         -o-transition: opacity 0.25s ease-out;
