@@ -513,6 +513,26 @@ __DATA__
     </section>
 
 
+@@ section-faq.html.ep
+    <section id="section-faq" class="page-section-scroll">
+      <header class="row">
+        <div class="col_6 last">
+          <h1>FAQ.</h1>
+        </div>
+      </header>
+      <div class="content">
+        % for my $text (@$faqs) {
+          <div class="row">
+            <div class="col_8 pre_1">
+              <%== markdown $text %>
+            </div> <!-- col_5 -->
+          </div> <!-- row -->
+        % }
+        <div class="spacer"></div>
+      </div>
+    </section>
+
+
 @@ section-contact.html.ep
     <section id="section-contact" class="page-section">
       <header class="row">
@@ -585,6 +605,7 @@ __DATA__
 %= include 'section-register'
 %= include 'section-schedule'
 %= include 'section-attendee'
+%= include 'section-faq'
 %= include 'section-contact'
 
 
