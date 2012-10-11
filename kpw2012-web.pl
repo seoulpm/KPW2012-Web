@@ -332,7 +332,7 @@ __DATA__
             <h1>Korean <span class="text-color">Perl</span> Workshop 2012</h1>
             <h2>
               on <span class="text-color">Sat. Oct. 20th, 2012</span> between <span class="text-color">14:00 - 20:00</span> <br />
-              at <span class="text-color"><a href="http://www.cnnthebiz.com/booth/booth01_5.asp">CNN the Biz 강남점</a></span>
+              at <span class="text-color"><a href="http://www.cnnthebiz.com/booth/booth01_8.asp">CNN the Biz 강남교육연수 센터</a></span>
               <br />
               <span class="text-color">Register</span> Now!
             </h2>
