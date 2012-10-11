@@ -366,7 +366,7 @@ footer ul li {
 }
 
 #section-home .content {
-    height: 460px;
+    height: 480px;
     position: relative;
     top: 50%;
     margin-top: -270px;
@@ -390,6 +390,15 @@ footer ul li {
 
 #section-home .content h2 .text-color {
     color: #00bff3;
+}
+
+#section-home .content h2 a {
+    color: #00bff3;
+    text-decoration: none;
+}
+
+#section-home .content h2 .text-color a {
+    color: #ed145b;
 }
 
 #section-home .content p {
