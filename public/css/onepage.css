@@ -998,25 +998,24 @@ footer ul li {
     }
 
     #sponsors ul li a {
-        width: 110px;
-        margin-bottom: 6px;
+        width: 88px;
+        margin-bottom: 5px;
     }
 
     #sponsors .sponsor-image {
-        width: 110px;
-        height: 30px;
-        background-size: 105px 25px;
+        width: 88px;
+        height: 24px;
     }
 
     #sponsors #sponsor-google {
-        height: 37px;
-        background-size: 105px 36px;
+        height: 30px;
+        background-size: 85px 29px;
     }
 
     #sponsors #sponsor-nemustech,
   #sponsors #sponsor-silex,
   #sponsors #sponsor-jinson {
-        background-size: 105px 25px;
+        background-size: 85px 20px;
     }
 
     h1 {
