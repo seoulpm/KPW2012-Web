@@ -72,7 +72,7 @@ helper get_attendees => sub {
     my (@confirmed, @waiting);
     my $rv = $conn->run(fixup => sub {
         try {
-            my $sth = $_->prepare( q{ SELECT * FROM register } );
+            my $sth = $_->prepare( q{ SELECT * FROM register ORDER BY status, updated_on } );
             my $rv = $sth->execute;
             while (my $data = $sth->fetchrow_hashref) {
                 given ( $data->{status} ) {
@@ -300,6 +300,23 @@ get '/attendees' => sub {
     my $attendees = $self->get_attendees;
 
     $self->respond_to( json => { json => $attendees } );
+};
+
+get '/twitter-list' => sub {
+    my $self = shift;
+
+    my @twitters;
+    $conn->run(fixup => sub {
+        try {
+            my $sth = $_->prepare( q{ SELECT * FROM register } );
+            $sth->execute;
+            while (my $data = $sth->fetchrow_hashref) {
+                push @twitters, $data->{twitter} if $data->{twitter};
+            }
+        };
+    });
+
+    $self->respond_to( json => { json => \@twitters } );
 };
 
 app->secret( app->defaults->{secret} );
