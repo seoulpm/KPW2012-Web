@@ -169,3 +169,5 @@ Lightning Talk
 - 나의 Perl 투신기:: 보다 나은 Perl 개미지옥을 위하여 - JellyPo
 - 생활속의 펄 - 정경훈(eeyees)
 - Midnight of Freesoftware - 조성재(jachin)
+- GitSSMSWMAESTROCloudPerl - @darjeelingt
+

@@ -179,7 +179,7 @@ textarea:-moz-placeholder { color:#444; opacity: 0.4; }
 
 #sponsors h2 {
     text-align: center;
-    font-size: 2.4em;
+    font-size: 2.0em;
     color: white;
     text-shadow: 3px 3px 0 #000,
      -1px -1px 0 #000,  
@@ -201,7 +201,7 @@ textarea:-moz-placeholder { color:#444; opacity: 0.4; }
 }
 
 #sponsors ul li a {
-    width: 220px;
+    width: 158px;
     overflow: hidden;
     float: right;
     position: relative;
@@ -216,27 +216,29 @@ textarea:-moz-placeholder { color:#444; opacity: 0.4; }
 }
 
 #sponsors .sponsor-image {
-    width: 220px;
-    height: 60px;
-    background-size: 210px 49px;
+    width: 158px;
+    height: 40px;
 }
 
 #sponsors #sponsor-google {
     background: url('../img/sponsor-google.png') no-repeat center;
-    background-size: 210px 73px;
-    height: 74px;
+    background-size: 154px 53px;
+    height: 55px;
 }
 
 #sponsors #sponsor-nemustech {
     background: url('../img/sponsor-nemustech.png') no-repeat center;
+    background-size: 154px 36px;
 }
 
 #sponsors #sponsor-silex {
     background: url('../img/sponsor-silex.png') no-repeat center;
+    background-size: 154px 36px;
 }
 
 #sponsors #sponsor-jinson {
     background: url('../img/sponsor-jinson.gif') no-repeat center;
+    background-size: 154px 36px;
 }
 
 .page-section {
@@ -366,7 +368,7 @@ footer ul li {
 }
 
 #section-home .content {
-    height: 460px;
+    height: 480px;
     position: relative;
     top: 50%;
     margin-top: -270px;
@@ -390,6 +392,15 @@ footer ul li {
 
 #section-home .content h2 .text-color {
     color: #00bff3;
+}
+
+#section-home .content h2 a {
+    color: #00bff3;
+    text-decoration: none;
+}
+
+#section-home .content h2 .text-color a {
+    color: #ed145b;
 }
 
 #section-home .content p {
@@ -987,25 +998,24 @@ footer ul li {
     }
 
     #sponsors ul li a {
-        width: 110px;
-        margin-bottom: 6px;
+        width: 88px;
+        margin-bottom: 5px;
     }
 
     #sponsors .sponsor-image {
-        width: 110px;
-        height: 30px;
-        background-size: 105px 25px;
+        width: 88px;
+        height: 24px;
     }
 
     #sponsors #sponsor-google {
-        height: 37px;
-        background-size: 105px 36px;
+        height: 30px;
+        background-size: 85px 29px;
     }
 
     #sponsors #sponsor-nemustech,
   #sponsors #sponsor-silex,
   #sponsors #sponsor-jinson {
-        background-size: 105px 25px;
+        background-size: 85px 20px;
     }
 
     h1 {
