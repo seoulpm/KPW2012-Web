@@ -1,0 +1,250 @@
+# This is a sample Vroom input file. It should help you get started.
+#
+# Edit this file with your content. Then run `vroom --vroom` to start
+# the show!
+#
+# See `perldoc Vroom` for complete details.
+#
+---- config
+# Basic config options.
+title: Vroom!
+indent: 5
+height: 18
+width: 69
+auto_size: 1
+skip: 0
+
+# The following options are for Gvim usage.
+# vim: gvim
+# gvimrc: |
+#   set fuopt=maxhorz,maxvert
+#   set guioptions=egmLtT
+#   set guifont=Bitstream_Vera_Sans_Mono:h18
+#   set guicursor=a:blinkon0-ver25-Cursor
+#   colorscheme default
+
+---- center
+p5-hubot
+
+Hyungsuk Hong
+
+KPW 2012
+
+----
+== Abount Me
+
+* @aanoaa
+* SILEX, Inc.
+
+----
+== Scope of the talk..
+
+* hubot?
+* p5-hubot?
+* how to use p5-hubot?
+* how to write your own p5-hubot script?
+* DEMO
+
+----
+== hubot?
+
++* originate from GitHub, Inc.
++* open source
++* written in CoffeeScript on Node.js
++* automate chat room
++* customizable
++* http://hubot.github.com/
+
+---- bash,i4
+<keedi> http://kldp.org/node/134703
+<hubot> [국내 루비 현황 | KLDP] - http://kldp.org/node/134703
+<hshong> ascii hi
+<hubot>   _     _
+<hubot>  | |   (_)
+<hubot>  | |__  _
+<hubot>  | |_ \| |
+<hubot>  | | | | |
+<hubot>  |_| |_|_|
+<hubot>           
+<hubot>           
+
+---- bash,i4
+<hubot> hubot: help
+# hubot help - Displays all of the help commands that Hubot knows about
+# hubot help <query> - Displays all help commands that match <query>
+# <tweeturl> - Display tweet content
+# ascii me <text> - Show text in ascii art
+# hubot ping
+<hshong> http://twitter.com/orderedlist/status/256581463967928320
+<hubot> orderedlist: “@glennbeck: Biden is an absolute bully” #irony
+<hshong> hubot: ping
+<hubot> hshong: PONG
+
+----
+== hubot
+
++ + popular - starred '2,814', forked '555' on GitHub
+   Fri Oct 12 11:15:41 2012 KST
++ + many contributors (+100)
++ + easy to deploy (with heroku)
++ + CoffeeScript (not Javascript)
++ + extensible scripts
++ + adapter based implementation
+
++ - stability on IRC
+   not came back to channel after split on freenode (why?)
++ - CoffeeScript (why some people hate it? did you try it?)
++ - Unicode support
+   difficult to solve encode, decode problem on each charset
+
+----
+== p5-hubot?
+
+----
+== AnyEvent based perl5 'hubot' implemetation
+
+----
+== p5-hubot
+
++ + perl hackers who didn\'t know CoffeeScript
++ + CPAN (The world best module archive network)
++ + easy to add script
+   $ cpanm Hubot::Scripts::something
+
++ - not popular - starred '0', forked '0' on GitHub
+   Fri Oct 12 11:15:41 2012 KST
++ - just one maintainer, commiter and contributor (me)
++ - progress in development
++ - unstable
++ - no test files
+
+----
+== how to use p5-hubot?
+
+----
+== Install 'Hubot'
+
+$ cpanm Hubot
+
+----
+== lookup Hubot::Scripts
+
+http://search.cpan.org/search?query=Hubot%3A%3AScripts&mode=all
+
+----
+== Install Hubot::Scripts::whatyouwant
+
+$ cpanm Hubot::Scripts::whatyouwant
+
+----
+== check it out the script documetation
+
+$ perldoc Hubot::Scripts::whatyouwant
+
+----
+== export env
+
+$ export HUBOT_ENV_TO_SET='xxx' # Hubot::Scripts::whatyouwant required
+
+----js,i4
+== add 'whatyouwant' to 'hubot-scripts.json'
+
+[ "help", "whatyouwant" ]
+
+----
+== run
+
+$ hubot
+
+----
+== how to write your own p5-hubot script?
+
+---- perl,i4
+== skeleton
+
+package Hubot::Scripts::something
+use strict;
+use warnings;
+
+sub load {
+    my ( $class, $robot ) = @_;
+
+    ## robot respond only called its name first. `hubot xxx`
+    $robot->respond(
+        qr/pattern (.*)?$/i, # (.*) will captured as `$msg->match->[0]`
+        sub {
+            my $msg  = shift;    # Hubot::Response
+            $msg->send('hi');    # hubot> hi
+            $msg->reply('hi');   # hubot> user: hi
+        }
+    );
+
+    ## robot can hear anything
+    $robot->hear(
+        qr/^pattern (.*)?$/i,
+        sub {
+            my $msg  = shift;    # Hubot::Response
+        }
+    );
+}
+
+----
+== hear, respond, send, reply
+
++* hear:    qr/abc/    # abc, 123abc가나다
++* respond: qr/abc/    # hubot: abc, hubot: abc123가나다
++* send:  $msg->send('hi');    # hubot> hi
++* reply: $msg->reply('hi');   # hubot> user: hi
+
+---- perl,i4
+== help message
+
+# add SYNOPSIS
+=pod
+
+=head1 SYNOPSIS
+
+    hubot <command> <args> - description
+
+=head1 CONFIGURATION
+
+=over
+
+=item HUBOT_ENV_TO_SET
+
+=back
+
+=cut
+
+----
+== available Dist::Zilla profile for hubot
+
+$ dzil new -p hubot Hubot::Scripts::myscript
+
+----
+== distribute to CPAN
+
+----
+== or pull request https://github.com/aanoaa/p5-hubot-scripts
+
+----
+== DEMO
+
+----
+== Slide - powered by Vroom
+
+* $ cpanm Vroom
+* http://search.cpan.org/dist/Vroom/
+* http://github.com/ingydotnet/vroom-pm/
+
+----
+== repositories
+
+* https://github.com/aanoaa/p5-hubot
+* https://github.com/aanoaa/p5-hubot-scripts
+
+----
+== Question?
+
+----
+== The End
