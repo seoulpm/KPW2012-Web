@@ -87,7 +87,7 @@ KPW 2012
    Fri Oct 12 11:15:41 2012 KST
 + + many contributors (+100)
 + + easy to deploy (with heroku)
-+ + CoffeeScript (not Javascript)
++ + CoffeeScript (not JavaScript)
 + + extensible scripts
 + + adapter based implementation
 
@@ -96,6 +96,17 @@ KPW 2012
 + - CoffeeScript (why some people hate it? did you try it?)
 + - Unicode support
    difficult to solve encode, decode problem on each charset
+
+---- js,i2
+== CoffeeScript vs JavaScript
+
+for item in list
+
+# vs
+
+for (var i = 0, j = list.length; i < j; i++) {
+  var item = list[i];
+}
 
 ----
 == p5-hubot?
@@ -132,24 +143,24 @@ $ cpanm Hubot
 http://search.cpan.org/search?query=Hubot%3A%3AScripts&mode=all
 
 ----
-== Install Hubot::Scripts::whatyouwant
+== Install Hubot::Scripts::<whatyouwant>
 
-$ cpanm Hubot::Scripts::whatyouwant
+$ cpanm Hubot::Scripts::<whatyouwant>
 
 ----
 == check it out the script documetation
 
-$ perldoc Hubot::Scripts::whatyouwant
+$ perldoc Hubot::Scripts::<whatyouwant>
 
 ----
 == export env
 
-$ export HUBOT_ENV_TO_SET='xxx' # Hubot::Scripts::whatyouwant required
+$ export HUBOT_ENV_TO_SET='xxx'    # if Hubot::Scripts::<whatyouwant> needed.
 
 ----js,i4
-== add 'whatyouwant' to 'hubot-scripts.json'
+== add '<whatyouwant>' to 'hubot-scripts.json'
 
-[ "help", "whatyouwant" ]
+[ "help", "<whatyouwant>" ]
 
 ----
 == run
@@ -183,7 +194,7 @@ sub load {
     $robot->hear(
         qr/^pattern (.*)?$/i,
         sub {
-            my $msg  = shift;    # Hubot::Response
+            my $msg  = shift;
         }
     );
 }
@@ -191,10 +202,10 @@ sub load {
 ----
 == hear, respond, send, reply
 
-+* hear:    qr/abc/    # abc, 123abc가나다
-+* respond: qr/abc/    # hubot: abc, hubot: abc123가나다
-+* send:  $msg->send('hi');    # hubot> hi
-+* reply: $msg->reply('hi');   # hubot> user: hi
++* hear   : qr/abc/            # abc
++* respond: qr/abc/            # hubot: abc
++* send   : $msg->send('hi');  # hubot> hi
++* reply  : $msg->reply('hi'); # hubot> user: hi
 
 ---- perl,i4
 == help message
@@ -244,7 +255,7 @@ $ dzil new -p hubot Hubot::Scripts::myscript
 * https://github.com/aanoaa/p5-hubot-scripts
 
 ----
-== Question?
+== Questions?
 
 ----
 == The End
