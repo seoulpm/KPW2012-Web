@@ -241,6 +241,12 @@ textarea:-moz-placeholder { color:#444; opacity: 0.4; }
     background-size: 154px 36px;
 }
 
+#sponsors #sponsor-perlweekly {
+    background: url('../img/sponsor-perlweekly.png') no-repeat center;
+    background-size: 154px 38px;
+    height: 40px;
+}
+
 .page-section {
     position: relative;
     height: 100%;
@@ -1113,6 +1119,11 @@ footer ul li {
   #sponsors #sponsor-silex,
   #sponsors #sponsor-jinson {
         background-size: 85px 20px;
+    }
+
+    #sponsors #sponsor-perlweekly {
+        height: 30px;
+        background-size: 85px 22px;
     }
 
     h1 {
