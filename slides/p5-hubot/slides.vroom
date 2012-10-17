@@ -87,6 +87,7 @@ KPW 2012
    Fri Oct 12 11:15:41 2012 KST
 + + many contributors (+100)
 + + easy to deploy (with heroku)
++ + compatibility between JSON and Object
 + + CoffeeScript (not JavaScript)
 + + extensible scripts
 + + adapter based implementation
