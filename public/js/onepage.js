@@ -35,6 +35,15 @@ $(document).ready(function() {
     var message  = $("#register-message").val();
     var checksum = md5( email + name + twitter + message );
 
+    $("#error-dialog").html('등록이 마감되었습니다.');
+    $('#error-dialog').dialog('open');
+    $("#register-email").val('');
+    $("#register-name").val('');
+    $("#register-twitter").val('');
+    $("#register-message").val('');
+
+    return false;
+
     $.ajax({
       url: attachPath('/register'),
       type: 'POST',
