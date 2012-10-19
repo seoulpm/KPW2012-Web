@@ -115,7 +115,7 @@ p5-hubot
 
 ### 초록
 
-GitHub 의 hubot 을 perl 로 porting 한 이야기
+()
 
 아이폰 개발자가 쓰는 perl
 --------------------------
