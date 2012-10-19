@@ -13,6 +13,8 @@ height: 18
 width: 69
 auto_size: 1
 skip: 0
+vimrc: |
+  set nonu
 
 # The following options are for Gvim usage.
 # vim: gvim
