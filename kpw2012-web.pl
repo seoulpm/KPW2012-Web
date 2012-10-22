@@ -613,17 +613,17 @@ __DATA__
 
 @@ index.html.ep
 % layout 'onepage',
-%   csses => [ qw( css/boilerplate.css css/onepage.css?20121022  ) ],
+%   csses => [ qw( css/boilerplate.css css/onepage.css?20121022 ) ],
 %   jses  => [ qw( jquery.nav.js jquery.scrollTo.js md5.min.js onepage.js ) ];
 %
 % title 'Korean Perl Workshop 2012';
 <div id="error-dialog"><p id="error-message"></p></div>
 <div id="success-dialog"><p id="success-message"></p></div>
 %= include 'section-home'
-%= include 'section-register'
 %= include 'section-schedule'
 %= include 'section-attendee'
 %= include 'section-faq'
+%= include 'section-register'
 %= include 'section-contact'
 
 
