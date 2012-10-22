@@ -176,6 +176,6 @@ $(document).ready(function() {
       }
     });
   };
-  loop_attendees.call(this);
-  setInterval(loop_attendees, intervalSecond * 1000);
+//  loop_attendees.call(this);
+//  setInterval(loop_attendees, intervalSecond * 1000);
 });
