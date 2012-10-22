@@ -613,7 +613,7 @@ __DATA__
 
 @@ index.html.ep
 % layout 'onepage',
-%   csses => [ qw( css/boilerplate.css css/onepage.css  ) ],
+%   csses => [ qw( css/boilerplate.css css/onepage.css?20121022  ) ],
 %   jses  => [ qw( jquery.nav.js jquery.scrollTo.js md5.min.js onepage.js ) ];
 %
 % title 'Korean Perl Workshop 2012';
