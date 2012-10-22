@@ -337,7 +337,7 @@ __DATA__
                 <a href="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EA%B0%95%EB%82%A8%EA%B5%AC+%EC%97%AD%EC%82%BC%EB%8F%99+619-16&hl=ko&ie=UTF8&ll=37.5021,127.027016&spn=0.174316,0.41851&sll=37.501433,127.026848&sspn=0.005481,0.013078&hnear=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD+%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EA%B0%95%EB%82%A8%EA%B5%AC+%EC%97%AD%EC%82%BC%EB%8F%99+619-16&t=m&z=12&iwloc=A"><i class=" icon-map-marker"></i></a>
               </span>
               <br />
-              <span class="text-color">Register</span> Now!
+%#              <span class="text-color">Register</span> Now!
             </h2>
           </div>
         </div>
@@ -358,6 +358,7 @@ __DATA__
       <div class="content">
         <form action="/register" method="post">
           <div class="row">
+<%# 모집완료
             <div class="col_6 pre_4" style="display: none;">
               <p style="hidden">
                 KPW 2012의 참가비는 <span class="text-color">1만원</span>입니다.
@@ -370,19 +371,23 @@ __DATA__
                 <span class="text-color">우리은행: 461-162011-02-101 (김도형)</span>
               </p>
             </div>
+%>
             <div class="col_6 pre_4">
               <p>
                 <span class="text-color">등록 신청</span>은 모두 <span class="text-color">마감</span> 되었습니다.
                 성원에 감사드립니다.
               </p>
+<%# 이벤트완료
               <p>
                 정원을 제외한 인원은 좌석이 없습니다.
                 그럼에도 불구하고 <span class="text-color">스탠딩</span> 또는
                 <span class="text-color">바닥</span>에 앉아서라도
                 워크샵에 참석하시고 싶으신 분은 <span class="text-color">연락</span>바랍니다.
               </p>
+%>
             </div>
           </div>
+<%# 이벤트종료
           <div class="row">
             <div class="col_4">
               <label for="register-email">Email</label>
@@ -428,6 +433,7 @@ __DATA__
               <a href="#section-register" id="register-submit" class="submit-button suf_1" disabled>Submit</a>
             </div>
           </div>
+%>  
         </form>
       </div>
     </section>
