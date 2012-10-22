@@ -4,7 +4,7 @@ $(document).ready(function() {
   //
   $('nav').onePageNav({ currentClass: 'active' });
   $('#subnav').click(function(){
-    $.scrollTo('#section-register', 800);
+    $.scrollTo('#section-schedule', 800);
     return false;
   });
 
