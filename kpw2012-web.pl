@@ -343,7 +343,7 @@ __DATA__
         </div>
         <div class="row">
           <div class="col_4 last">
-            <a class="large-circular-down-arrow" href="#section-register" id="subnav"></a>
+            <a class="large-circular-down-arrow" href="#section-schedule" id="subnav"></a>
           </div>
         </div>
       </div>
